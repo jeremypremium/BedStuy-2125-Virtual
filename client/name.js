@@ -9,7 +9,6 @@ document.getElementById('name-form').addEventListener('submit', function(e) {e.p
     // Get the current form input
     const name = document.getElementById('name-input').value;
     
-    // Pass all data forward 
-      window.location.href = `describe.html?year=${year}&address=${address}&name=${name}`;
+    // Pass all data forward & encode the data before putting in URL
+    window.location.href = `describe.html?year=${encodeURIComponent(year)}&address=${encodeURIComponent(address)}&name=${encodeURIComponent(name)}`;
 });
-

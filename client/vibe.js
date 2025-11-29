@@ -12,6 +12,6 @@ document.getElementById('vibe-form').addEventListener('submit', function(e) {e.p
     // Get the current form input
     const vibe = document.getElementById('vibe-input').value;
 
-    // Pass all data forward 
-    window.location.href = `final.html?year=${year}&address=${address}&name=${name}&describe=${describe}&vibe=${vibe}`;
+    // Pass all data forward & encode data before putting it in URL
+    window.location.href = `final.html?year=${encodeURIComponent(year)}&address=${encodeURIComponent(address)}&name=${encodeURIComponent(name)}&describe=${encodeURIComponent(describe)}&vibe=${encodeURIComponent(vibe)}`;
 });

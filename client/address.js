@@ -8,6 +8,6 @@ document.getElementById('address-form').addEventListener('submit', function(e) {
      // Get the current form input
     const address = document.getElementById('address-input').value;
     
-    // Pass all data forward 
-    window.location.href = `name.html?year=${year}&address=${address}`;
+    // Pass all data forward & Encode the data before putting in URL
+    window.location.href = `name.html?year=${encodeURIComponent(year)}&address=${encodeURIComponent(address)}`;
 });
