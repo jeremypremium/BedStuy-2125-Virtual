@@ -65,7 +65,7 @@ app.post('/submit-building', async (req, res) => {
 
     // INSERT INTO DATABASE (Added ai_description and ai_image_url columns)
     const result = await pool.query(
-      'INSERT INTO buildings (name, address, year, describe, vibe, user_name, user_location, ai_description, ai_image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      'INSERT INTO buildings (name, address, year, describe, vibe, user_name, user_location, ai_description, ai_image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
       [name, address, year, describe, vibe, user_name, user_location, aiDescription, imageUrl]
     );
 
