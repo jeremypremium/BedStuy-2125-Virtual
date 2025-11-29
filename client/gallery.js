@@ -12,7 +12,8 @@ async function loadBuildings() {
             <p>Year: ${building.year}</p>
             <p>${building.describe}</p>
             <p>Visual: ${building.vibe}</p>
-        `;
+            <p>${building.aiDescription}</p>
+          `;
         container.appendChild(card);
       });
 
