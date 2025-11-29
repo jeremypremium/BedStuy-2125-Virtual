@@ -8,13 +8,19 @@ async function loadBuildings() {
         const card = document.createElement ('div');
         card.innerHTML = `
             <h3>${building.name}</h3>
+            <img src="${building.ai_image_url}" alt="${building.name}" style="width: 100%; max-width: 400px;">
             <p>address: ${building.address}</p>
             <p>Year: ${building.year}</p>
             <p>${building.describe}</p>
             <p>Visual: ${building.vibe}</p>
             <p>${building.ai_description}</p>
-          `;
-        container.appendChild(card);
+            <p>Submitted by ${building.user_name} from ${building.user_location} on ${new Date(building.created_at).toLocaleDateString()}</p>
+          `; 
+          // from above: building.created_at gets the timestamp from the database; 
+          // new Date(...) converts it to a JavaScript Date object
+          // .toLocaleDateString() formats it to XX/XX/XXXX
+        
+          container.appendChild(card);
       });
 
     } catch (error) {
