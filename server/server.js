@@ -36,17 +36,15 @@ app.post('/submit-building', async (req, res) => {
     //Get user data
     const { name, address, year, describe, vibe, user_name, user_location } = req.body;
     console.log(`Generating AI description for: ${name}...`);
+    
     //Generate AI text; create a prompt based on user input
-    const prompt = `
-      Describe a futuristic building named "${name}" located at ${address}. 
-      It was built in the year ${year}. 
-      The user describes it as: "${describe}".
-      The vibe is: "${vibe}".
-      Write a creative architectural description (max 100 words).
-    `;
+    const prompt = `You are an architectural historian from the year ${year} in Bed-Stuy, Brooklyn. 
+    A new building called "${name}" was just built at ${address}. 
+    The creator describes it as: "${describe}" with a vibe of "${vibe}".
+    Write a 2-3 sentence description of this building as if you're documenting it for future generations.`;
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini", // Use this standard, fast model
+      model: "gpt-4o-mini", 
       messages: [
           { role: "system", content: "You are an architectural historian from the future." },
           { role: "user", content: prompt }
@@ -55,10 +53,20 @@ app.post('/submit-building', async (req, res) => {
 
     const aiDescription = completion.choices[0].message.content;
 
-    // 3. INSERT INTO DATABASE (Added ai_description column)
+    // AI image generation
+    const imageResponse = await openai.images.generate ({
+      model: "dall-e-3",
+      prompt: `A futuristic building in Bed-Stuy, Brooklyn in the year ${year}. ${aiDescription}`,
+      n: 1,
+      size: "1024x1024"
+    });
+
+    const imageUrl = imageResponse.data[0].url;
+
+    // INSERT INTO DATABASE (Added ai_description and ai_image_url columns)
     const result = await pool.query(
-      'INSERT INTO buildings (name, address, year, describe, vibe, user_name, user_location, ai_description) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
-      [name, address, year, describe, vibe, user_name, user_location, aiDescription]
+      'INSERT INTO buildings (name, address, year, describe, vibe, user_name, user_location, ai_description, ai_image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *',
+      [name, address, year, describe, vibe, user_name, user_location, aiDescription, imageUrl]
     );
 
     res.json(result.rows[0]);
