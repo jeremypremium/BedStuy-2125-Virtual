@@ -69,14 +69,27 @@ app.post('/submit-building', async (req, res) => {
       size: "1024x1024"
     });
 
-    const imageUrl = imageResponse.data[0].url;
+    const tempImageUrl = imageResponse.data[0].url;
+    console.log ('AI image generated (temporary URL)');
 
-    // INSERT INTO DATABASE (Added ai_description and ai_image_url columns)
+    // Upload to Cloudinary for permanent storage 
+    const uploadResult = await cloudinary.uploader.upload(tempImageUrl, {
+      folder: 'bedstuy-2125',
+      transformation: [
+        {width: 1024, height: 1024, crop: 'limit'}
+      ]
+    });  
+
+    const permanentImageUrl = uploadResult.secure_url;
+    console.log ('image uploaded to Cloudinary (permanent URL');
+
+    // save to database with permanent image URL 
     const result = await pool.query(
       'INSERT INTO buildings (name, address, year, describe, vibe, user_name, user_location, ai_description, ai_image_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *',
-      [name, address, year, describe, vibe, user_name, user_location, aiDescription, imageUrl]
+      [name, address, year, describe, vibe, user_name, user_location, aiDescription, permanentImageUrl]
     );
 
+    console.log('building saved to database with permanent image');
     res.json(result.rows[0]);
 
     } catch (err) {
