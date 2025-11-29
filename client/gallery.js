@@ -8,11 +8,11 @@ async function loadBuildings() {
         const card = document.createElement ('div');
         card.innerHTML = `
             <h3>${building.name}</h3>
-            <p>address: ${building.location}</p>
+            <p>address: ${building.address}</p>
             <p>Year: ${building.year}</p>
             <p>${building.describe}</p>
             <p>Visual: ${building.vibe}</p>
-            <p>${building.aiDescription}</p>
+            <p>${building.ai_description}</p>
           `;
         container.appendChild(card);
       });
