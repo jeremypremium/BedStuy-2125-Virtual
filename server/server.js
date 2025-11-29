@@ -5,10 +5,18 @@ const port = process.env.PORT || 3000;
 const {Pool} = require('pg');
 const cors = require('cors');
 const OpenAI = require("openai");
+const cloudinary = require('cloudinary').v2;
 
 // OpenAI connection
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY, 
+});
+
+// Cloudinary configuration
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
 // database connection
