@@ -17,7 +17,7 @@ async function loadBuildings() {
             <h3>${building.name}</h3>
             <p><strong>Address:</strong> ${building.address}</p>
             <p><strong>Year:</strong> ${building.year}</p>
-            <p class="card-description"><em>${building.describe}</p>
+            <p class="card-description"><em>${building.describe}</em></p>
             <p><strong>Vibe:</strong> ${building.vibe}</p>
             <p class="card-description"><em>${building.ai_description}</em></p>
             <div class="card-meta">
