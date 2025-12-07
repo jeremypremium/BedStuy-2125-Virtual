@@ -63,6 +63,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    align-items: flex-start;
 }
 
 h1 {
@@ -242,4 +243,8 @@ nav {
 
 .page-final button {
     margin-bottom: 60px;
+}
+
+.logo {
+    padding-left: 18px;
 }
