@@ -53,6 +53,7 @@ body {
 
 .page-gallery {
     background: var(--cream);
+    color: var(--deep-navy);
 }
 
 .container {
