@@ -56,9 +56,9 @@ body {
 }
 
 .container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 60px 30px;
+    max-width: 800px;
+    margin: 0;
+    padding: 120px 18px 60px 18px;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -117,7 +117,7 @@ input:focus {
 /* button styling */
 button {
     margin-top: 30px;
-    padding: 20px 50px 20px 18px;
+    padding: 20px 50px;
     font-size: clamp(1rem, 2.5vw, 1.3rem);
     font-family: 'Space Grotesk', sans-serif;
     font-weight: 700;
@@ -234,18 +234,12 @@ nav {
 
 /* overrides existing styling, different font color + extra padding below button*/
 .page-gallery h1,
-.page-gallery p {
+.page-gallery p,
+.page-about h1,
+.page-about p {
     color: var(--deep-navy);
 }
 
 .page-final button {
     margin-bottom: 60px;
-}
-
-.logo,
-/* h1, */
-p,
-form {
-/* button { */
-    padding-left: 18px;
 }
