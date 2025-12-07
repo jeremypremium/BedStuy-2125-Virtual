@@ -243,9 +243,9 @@ nav {
 }
 
 .logo,
-h1,
+/* h1, */
 p,
-form,
-button {
+form {
+/* button { */
     padding-left: 18px;
 }
