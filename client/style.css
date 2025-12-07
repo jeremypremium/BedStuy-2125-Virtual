@@ -26,7 +26,7 @@
         }
 
 :root {
-    --electric-orange: #FF4500;
+    --electric-orange: #E34A27;
     --deep-navy: #0A0E27;
     --cream: #F5F1E8;
     --forest-green: #2e6f40;
@@ -45,31 +45,31 @@ body {
 }
 
 .page-home {
-    background: linear-gradient(135deg, var(--deep-navy) 0%, #1a1f3a 100%);
+    background: var(--deep-navy)
  }
 
 .page-year {
-    background: linear-gradient(135deg, var(--electric-orange) 0%, var(--burnt-orange) 100%);
+    background: var(--electric-orange)
 }
 
 .page-address {
-    background: linear-gradient(135deg, #0f1419 0%, #1e2835 100%);
+    background: var(--forest-green);
 }
 
 .page-name {
-    background: linear-gradient(135deg, var(--cranberry-red) 0%, #0097b8 100%);
+    background: var(--cranberry-red)
 }
 
 .page-describe {
-    background: linear-gradient(135deg, var(--sunset-yellow) 0%, #ff9500 100%);
+    background: var(--sunset-yellow)
 }
 
 .page-vibe {
-    background: linear-gradient(135deg, #2D5C3D 0%, #4a9d5f 100%);
+    background: var(--neon-cyan)
 }
 
 .page-final {
-    background: linear-gradient(135deg, var(--cream) 0%, #e8dcc8 100%);
+    background: var(--deep-navy)
 }
 
 .page-gallery {
