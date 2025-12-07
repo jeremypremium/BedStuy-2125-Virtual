@@ -233,6 +233,12 @@ nav {
     opacity: 0.6;
 }
 
+img {
+    width: 642.6px;
+    height: 856.8px;
+    padding: 10px;
+}
+
 /* overrides existing styling, different font color + extra padding below button*/
 .page-gallery h1,
 .page-gallery p,
