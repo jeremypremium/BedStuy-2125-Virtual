@@ -1,6 +1,6 @@
 * {
     margin: 0;
-    padding: 18px;
+    padding: 0;
     box-sizing: border-box;
 }
 
@@ -21,6 +21,7 @@ body {
     font-family: 'Space Grotesk', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+     padding: 18px; 
 }
 
 .page-home {
@@ -198,7 +199,6 @@ nav {
     top: 0;
     left: 0;
     right: 0;
-    /* padding: 30px; */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -210,6 +210,7 @@ nav {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.5rem;
     letter-spacing: 2px;
+    padding: 0;
 }
 
 .nav-links {
@@ -238,4 +239,11 @@ nav {
 
 .page-final button {
     margin-bottom: 60px;
+}
+
+.logo,
+h1,
+form,
+button {
+    padding-left: 18px;
 }

@@ -12,7 +12,7 @@ async function loadHomeGallery() {
         if (!container) return; // Safety check in case the ID is missing
 
         // show only the 3 most recent buildings on the homepage
-        const recentBuildings = buildings.slice(0, 4); 
+        const recentBuildings = buildings.slice(0, 3); 
 
         recentBuildings.forEach(building => {
             const card = document.createElement('article');
