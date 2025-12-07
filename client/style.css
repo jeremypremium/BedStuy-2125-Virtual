@@ -53,7 +53,6 @@ body {
 
 .page-gallery {
     background: var(--cream);
-    color: var(--deep-navy);
 }
 
 .container {
@@ -128,4 +127,9 @@ button {
     position: relative;
     overflow: hidden;
     color: var(--cream);
+}
+
+.page-gallery h1,
+.page-gallery p {
+    color: var(--deep-navy);
 }
