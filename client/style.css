@@ -107,7 +107,7 @@ input::placeholder {
 
 input:focus {
     outline: none;
-    border-bottom-color: currentColor;
+    border-bottom-color: var(--cream);
     transform: translateY(-2px);
 }
 
@@ -120,10 +120,11 @@ button {
     font-weight: 700;
     letter-spacing: 1px;
     text-transform: uppercase;
-    border: 3px solid currentColor;
+    border: 3px solid var(--cream);
     background: transparent;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    color: var(--cream);
 }
