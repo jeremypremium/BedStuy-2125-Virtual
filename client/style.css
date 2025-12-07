@@ -1,24 +1,3 @@
-/* accent colors
-#9c4c46 - brick red
-#7ba3a0 - light pea green
-#2b0080 - midnight purple
-#970000 - cranberry red
-#2e6f40 - forest green
-#d19d00 - golden yellow
-#fbfad9 - matte cream
-*/
-
-/* pages
-.page-home
-.page-year 
-.page-address
-.page-name
-.page-describe
-.page-vibe
-.page-final
-.page-gallery
-*/
-
 * {
     margin: 0;
     padding: 0;
@@ -75,3 +54,22 @@ body {
 .page-gallery {
     background: var(--cream);
 }
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 60px 30px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    }
+
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 6rem);
+    line-height: 0.9;
+    margin-bottom: 30px;
+    letter-spacing: -2px;
+    color: var(--cream);
+    }
