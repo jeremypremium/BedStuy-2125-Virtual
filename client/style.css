@@ -62,7 +62,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 }
 
 h1 {
@@ -202,6 +202,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
+    color: var(--cream);
 }
 
 .logo {
