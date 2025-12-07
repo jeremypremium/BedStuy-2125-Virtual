@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,16 +8,34 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Bebas+Neue&display=swap"
+        rel="stylesheet">
 </head>
+
 <body class="page-home">
     <h1>BUILD THE FUTURE OF BED-STUY</h1>
     <p>Imagine. Design. Share.</p>
     <button id="home-button"> START BUILDING</button>
 
-   
-   
-   
+    <div class="gallery-grid" style="background: var(--cream); padding: 80px 20px;">
+        <div class="building-card">
+            <div class="card-content">
+                <h3>${building.name}</h3>
+                <img src="${building.ai_image_url}" alt="${building.name}" style="width: 100%; max-width: 400px;">
+                <p>address: ${building.address}</p>
+                <p>Year: ${building.year}</p>
+                <p>${building.describe}</p>
+                <p>Visual: ${building.vibe}</p>
+                <p>${building.ai_description}</p>
+                <p>Submitted by ${building.user_name} from ${building.user_location} on ${new
+                    Date(building.created_at).toLocaleDateString()}</p>
+            </div>
+        </div>
+    </div>
+
+
+
     <script src="index.js"></script>
 </body>
+
 </html>
