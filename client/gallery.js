@@ -6,16 +6,25 @@ async function loadBuildings() {
       const container = document.getElementById('buildings-container');
       buildings.forEach(building => {
         const card = document.createElement ('div');
+        // Adds the main styling class
+        card.classList.add('building-card'); 
+        
         card.innerHTML = `
-            <h3>${building.name}</h3>
+          <div class="card-image">
             <img src="${building.ai_image_url}" alt="${building.name}" style="width: 100%; max-width: 400px;">
-            <p>address: ${building.address}</p>
-            <p>Year: ${building.year}</p>
-            <p>${building.describe}</p>
-            <p>Visual: ${building.vibe}</p>
-            <p>${building.ai_description}</p>
-            <p>Submitted by ${building.user_name} from ${building.user_location} on ${new Date(building.created_at).toLocaleDateString()}</p>
-          `; 
+          </div>
+          <div class="card-content">
+            <h3>${building.name}</h3>
+            <p><strong>Address:</strong> ${building.address}</p>
+            <p><strong>Year:</strong> ${building.year}</p>
+            <p class="card-description"><em>${building.describe}</p>
+            <p><strong>Vibe:</strong> ${building.vibe}</p>
+            <p class="card-description"><em>${building.ai_description}</em></p>
+            <div class="card-meta">
+                        Submitted by ${building.user_name} from ${building.user_location} • ${new Date(building.created_at).toLocaleDateString()}
+                    </div>
+                </div>
+            `; 
           // from above: building.created_at gets the timestamp from the database; 
           // new Date(...) converts it to a JavaScript Date object
           // .toLocaleDateString() formats it to XX/XX/XXXX
