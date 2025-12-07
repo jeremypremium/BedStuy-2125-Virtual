@@ -21,7 +21,6 @@ body {
     font-family: 'Space Grotesk', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
-     padding: 18px; 
 }
 
 .page-home {
@@ -200,6 +199,7 @@ nav {
     left: 0;
     right: 0;
     display: flex;
+    padding: 18px 0;
     justify-content: space-between;
     align-items: center;
     z-index: 1000;
@@ -219,6 +219,7 @@ nav {
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    padding-right: 18px;
 }
 
 .nav-links a {
