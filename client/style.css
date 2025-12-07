@@ -1,39 +1,25 @@
-.page-home {
-  background-color: #9c4c46; 
-  color: #e7e7e7;
-}
+/* accent colors
+#9c4c46 - brick red
+#7ba3a0 - light pea green
+#2b0080 - midnight purple
+#970000 - cranberry red
+#2e6f40 - forest green
+#d19d00 - golden yellow
+#fbfad9 - matte cream
+*/
 
-.page-year {
-  background-color: #7ba3a0;
-  color: #44444a;
-}
+/* pages
+.page-home
+.page-year 
+.page-address
+.page-name
+.page-describe
+.page-vibe
+.page-final
+.page-gallery
+*/
 
-.page-address {
-  background-color: #2b0080; 
-  color: #e7e7e7;
-}
-
-.page-name {
-  background-color: #970000;
-  color: #e7e7e7; 
-}
-
-.page-describe {
-  background-color: #2e6f40; 
-  color: #e7e7e7;
-}
-
-.page-vibe {
-  background-color: #d19d00;
-  color: #e7e7e7; 
-}
-
-.page-final {
-  background-color: #9c4c46; 
-  color: #e7e7e7;
-}
-
-.page-gallery {
-  background-color: #fbfad9;
+body {
+  background-color: #e7e7e7; 
   color: #44444a;
 }
