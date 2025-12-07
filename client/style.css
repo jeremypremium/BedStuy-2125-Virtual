@@ -96,25 +96,8 @@ input {
     background: transparent;
     border: none;
     border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-    color: inherit;
-    transition: all 0.3s ease;
-}
-
-.page-home input,
-.page-address input {
     color: var(--cream);
-}
-
-.page-year input,
-.page-name input,
-.page-describe input,
-.page-vibe input {
-    color: white;
-}
-
-.page-final input {
-    color: var(--deep-navy);
-    border-bottom-color: rgba(10, 14, 39, 0.2);
+    transition: all 0.3s ease;
 }
 
 input::placeholder {
