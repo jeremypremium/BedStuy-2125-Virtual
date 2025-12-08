@@ -211,6 +211,39 @@ button {
     padding: 0;
 }
 
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 80px 40px 40px 40px;
+}
+
+.about-container h1 {
+    color: var(--deep-navy);
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+.about-container h1:first-child {
+    margin-top: 120px; /* Extra space for first heading to clear nav */
+}
+
+.about-container h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    color: var(--deep-navy);
+    margin-top: 60px;
+    margin-bottom: 20px;
+    letter-spacing: -1px;
+}
+
+.about-container p {
+    color: var(--deep-navy);
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    max-width: 900px;
+}
+
 /* NAVIGATION */
 nav {
     position: fixed;
