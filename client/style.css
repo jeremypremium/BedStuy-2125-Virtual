@@ -197,6 +197,20 @@ button {
     opacity: 0.7;
 }
 
+/* page-about gallery */
+.page-about .building-card {
+    background: white;
+    padding: 0;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.page-about .building-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    padding: 0;
+}
+
 /* NAVIGATION */
 nav {
     position: fixed;
