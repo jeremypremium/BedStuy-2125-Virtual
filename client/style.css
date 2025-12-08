@@ -55,6 +55,10 @@ body {
     background: var(--cream);
 }
 
+.page-about {
+    background: var(--cream);
+}
+
 .container {
     max-width: 800px;
     margin: 0;
@@ -233,10 +237,24 @@ nav {
     opacity: 0.6;
 }
 
-img {
-    width: 642.6px;
-    height: 856.8px;
-    padding: 10px;
+.contact-links {
+    display: flex;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.contact-links a {
+    color: var(--electric-orange);
+    text-decoration: none;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: opacity 0.3s ease;
+}
+
+.contact-links a:hover {
+    opacity: 0.6;
 }
 
 /* overrides existing styling, different font color + extra padding below button*/
