@@ -309,6 +309,8 @@ nav {
 .page-gallery p,
 .page-about h1,
 .page-about p,
+.page-gallery nav, 
+.page-gallery .nav-links,
 .page-about nav,
 .page-about .nav-links {
     color: var(--deep-navy);
