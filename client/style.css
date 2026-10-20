@@ -376,7 +376,7 @@ input:focus {
    gallery images, so anchor the cover-crop to the bottom to avoid slicing
    into the caption band. */
 .hero-arch-wrap .arch-frame img {
-    object-position: center 80%;
+    object-position: center 90%;
 }
 
 .hero-caption {
@@ -493,11 +493,20 @@ input:focus {
     opacity: 0.85;
 }
 
-/* Static poster assets (prototype + rendering + caption composited together)
-   have baked-in text near the top, unlike the clean square AI renders, so
-   anchor their cover-crop to the bottom. */
-.arch-frame--poster img {
-    object-position: center bottom;
+/* Static poster assets (prototype + rendering + location photos composited
+   together) are shown in full rather than square-cropped into the arch. */
+.poster-frame {
+    border: 2px solid var(--brownstone);
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--image-fill);
+    cursor: pointer;
+}
+
+.poster-frame img {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
 /* === LIGHTBOX === */
