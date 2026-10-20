@@ -16,22 +16,17 @@ async function loadHomeGallery() {
 
         recentBuildings.forEach(building => {
             const card = document.createElement('article');
-            card.classList.add('building-card');
+            card.classList.add('rendering-card');
 
             card.innerHTML = `
-                <div class="card-image">
+                <div class="arch-frame">
                     <img src="${building.ai_image_url || ''}" alt="${building.name}" onerror="this.style.display='none'">
                 </div>
-                <div class="card-content">
-                    <h3>${building.name}</h3>
-                    <p><strong>Address:</strong> ${building.address}</p>
-                    <p><strong>Year:</strong> ${building.year}</p>
-                    <p><strong>Vibe:</strong> ${building.vibe}</p>
-                    <p class="card-description">${building.describe}</p>
-                    <div class="card-meta">
-                        Submitted by ${building.user_name} • ${new Date(building.created_at).toLocaleDateString()}
-                    </div>
+                <div class="card-caption-row card-caption-row--quiet">
+                    <span class="card-name">${building.name}</span>
                 </div>
+                <p class="card-ai-description">${building.ai_description}</p>
+                <p class="card-submitted">Submitted by ${building.user_name} • ${new Date(building.created_at).toLocaleDateString()}</p>
             `;
             container.appendChild(card);
         });

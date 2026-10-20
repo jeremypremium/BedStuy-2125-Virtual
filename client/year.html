@@ -7,24 +7,31 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Fraunces:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
-<body class="page-year">
-     <nav class="navigation">
-        <div class="logo">BED-STUY 2125</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="about.html">About</a>
-        </div>
-    </nav>
-    <h1>What year is it, fam?</h1>
-    <form id ="year-form">
-        <input type="text" id="year-input" placeholder="2125" required>
-        <button type = "submit" > Next</button>
-    </form>
+<body class="page-year form-page">
+    <header class="site-header container">
+        <a href="index.html" class="wordmark">BED-STUY 2125</a>
+        <nav class="pill-nav">
+            <a href="index.html" class="pill-link">Home</a>
+            <a href="gallery.html" class="pill-link">Gallery</a>
+            <a href="about.html" class="pill-link">About</a>
+        </nav>
+    </header>
 
+    <div class="container">
+        <h1>What year is it, fam?</h1>
+        <form id ="year-form">
+            <input type="text" id="year-input" placeholder="2125" required>
+            <button type = "submit" class="btn-primary">Next</button>
+        </form>
+    </div>
+
+    <footer class="site-footer container">
+        <span class="wordmark">BED-STUY 2125</span>
+        <span>A speculative design project by Jeremy Knight</span>
+    </footer>
 
     <script src="year.js"></script>
-</body> 
+</body>
 </html>

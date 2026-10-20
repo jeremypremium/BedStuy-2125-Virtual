@@ -5,91 +5,213 @@
 }
 
 :root {
-    --electric-orange: #E34A27;
-    --deep-navy: #0A0E27;
-    --cream: #F5F1E8;
-    --forest-green: #2e6f40;
-    --sunset-yellow: #FFB800;
-    --brick: #9c4c46;
-    --burnt-orange: #E8744F;
-    --sunset-yellow: #FFB800;
-    --eggplant: #94c;
+    /* Golden Hour design tokens */
+    --marigold:    #f4d35e; /* page background everywhere */
+    --ink:         #1e2a1a; /* primary text, primary buttons, rules */
+    --ink-rgb:     30, 42, 26;
+    --forest:      #24452f; /* italic headline accent, bottom stoop step */
+    --brownstone:  #7a3e26; /* eyebrows, numbers, arch frames/borders, middle step */
+    --terracotta:  #a0573a; /* upper stoop step */
+    --clay:        #b86b48; /* 4th (top) step on About only, with ink text */
+    --cream:       #fff4dc; /* text on brownstone/terracotta/forest steps */
+    --image-fill:  #e8c24e; /* placeholder background behind images while loading */
+    --rule-soft:   #c9a63e; /* thin dividers in lists */
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+    * {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
 
 body {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
+    background: var(--marigold);
+    color: var(--ink);
 }
 
-.page-home {
-    background: var(--deep-navy)
+a {
+    color: inherit;
 }
 
-.page-year {
-    background: var(--electric-orange)
+/* Visible focus styles everywhere */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
 }
 
-.page-address {
-    background: var(--forest-green);
-}
-
-.page-name {
-    background: var(--brick)
-}
-
-.page-describe {
-    background: var(--sunset-yellow)
-}
-
-.page-vibe {
-    background: var(--eggplant)
-}
-
-.page-final {
-    background: var(--deep-navy)
-}
-
-.page-gallery {
-    background: var(--cream);
-}
-
-.page-about {
-    background: var(--cream);
-}
-
+/* === LAYOUT === */
 .container {
-    max-width: 800px;
-    margin: 0;
-    padding: 120px 18px 60px 18px;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 32px;
 }
 
-h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    /* responsive typography (floor, ideal, max) */
-    font-size: clamp(3rem, 10vw, 6rem);
-    line-height: 0.9;
-    margin-bottom: 30px;
-    letter-spacing: -2px;
-    color: var(--cream);
-    margin-top: 90px;
+@media (max-width: 600px) {
+    .container {
+        padding: 0 16px;
+    }
+}
+
+.section {
+    padding: 48px 0;
+}
+
+/* === HEADER / NAV === */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+    padding-top: 36px;
+    padding-bottom: 36px;
+}
+
+.wordmark {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.pill-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.pill-link {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 12px 20px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+    background: transparent;
+}
+
+.pill-link.is-active {
+    background: var(--ink);
+    color: var(--marigold);
+    font-weight: 700;
+}
+
+/* === TYPOGRAPHY === */
+.eyebrow {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    color: var(--brownstone);
+    margin-bottom: 18px;
+}
+
+.tagline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 26px;
+    color: var(--ink);
+    margin: 24px 0;
+}
+
+.display-heading {
+    margin: 0 0 24px 0;
+}
+
+.display-heading .line-1 {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(44px, 6.4vw, 96px);
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+}
+
+.display-heading .line-2 {
+    display: block;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: clamp(48px, 7vw, 104px);
+    line-height: 1;
+    color: var(--forest);
+}
+
+.section-heading {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 36px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
 }
 
 p {
-    font-size: clamp(1rem, 3vw, 1.5rem);
-    margin-bottom: 50px;
-    opacity: 0.9;
-    font-weight: 400;
-    color: var(--cream);
+    font-size: 1rem;
+    line-height: 1.6;
 }
 
-/* form stlying */
+/* === BUTTONS / LINKS === */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--marigold);
+    padding: 20px 40px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+    text-decoration: underline;
+    text-underline-offset: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+/* form styling (builder flow pages) */
 form {
     width: 100%;
 }
@@ -99,12 +221,12 @@ input {
     padding: 20px 0;
     margin-bottom: 20px;
     font-size: clamp(1.2rem, 3vw, 2rem);
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: 'DM Sans', sans-serif;
     font-weight: 400;
     background: transparent;
     border: none;
-    border-bottom: 3px solid rgba(255, 255, 255, 0.3);
-    color: var(--cream);
+    border-bottom: 3px solid rgba(30, 42, 26, 0.3);
+    color: var(--ink);
     transition: all 0.3s ease;
 }
 
@@ -115,62 +237,274 @@ input::placeholder {
 
 input:focus {
     outline: none;
-    border-bottom-color: var(--cream);
+    border-bottom-color: var(--ink);
     transform: translateY(-2px);
 }
 
-/* button styling */
-button {
-    margin-top: 30px;
-    padding: 20px 50px;
-    font-size: clamp(1rem, 2.5vw, 1.3rem);
-    font-family: 'Space Grotesk', sans-serif;
-    font-weight: 700;
-    letter-spacing: 1px;
+/* Simple, single-line heading treatment for the builder-flow pages
+   (year/address/name/describe/vibe/final) -- these aren't part of the
+   defined two-line display-heading copy set, so they get the shared
+   type family without the signature two-line motif. */
+.form-page h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 40px;
+}
+
+.form-page p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.form-page .container {
+    padding-top: 60px;
+    padding-bottom: 80px;
+}
+
+/* === STOOP STEPS (signature element 1) === */
+.stoop-steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.step {
+    width: var(--step-width, 100%);
+    max-width: 100%;
+    padding: 26px 32px;
+}
+
+.step:first-child {
+    border-radius: 10px 10px 0 0;
+}
+
+.step:last-child {
+    border-radius: 0 0 10px 10px;
+}
+
+.step-label {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 15px;
     text-transform: uppercase;
-    border: 3px solid var(--cream);
-    background: transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    letter-spacing: 0.14em;
+    margin-bottom: 8px;
+}
+
+.step p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.step--terracotta {
+    background: var(--terracotta);
     color: var(--cream);
 }
 
-/* === GALLERY === */
-.gallery-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 40px;
-    padding: 40px 20px;
-    max-width: 1400px;
+.step--brownstone {
+    background: var(--brownstone);
+    color: var(--cream);
+}
+
+.step--forest {
+    background: var(--forest);
+    color: var(--cream);
+}
+
+.step--forest .step-label {
+    color: var(--marigold);
+}
+
+.step--clay {
+    background: var(--clay);
+    color: var(--ink);
+}
+
+@media (max-width: 600px) {
+    .step {
+        width: 100% !important;
+    }
+}
+
+/* === SHALLOW BROWNSTONE ARCH (signature element 2) === */
+.arch-frame {
+    aspect-ratio: 1 / 1;
+    border-radius: 50% 50% 6px 6px / 12% 12% 6px 6px;
+    border: 2px solid var(--brownstone);
+    background: var(--image-fill);
+    overflow: hidden;
+}
+
+.arch-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.arch-frame--portrait {
+    aspect-ratio: 3 / 4;
+}
+
+.hero-arch-wrap {
+    background: var(--brownstone);
+    border-radius: 50% 50% 8px 8px / 15% 15% 8px 8px;
+    padding: 14px;
+    width: min(520px, 100%);
     margin: 0 auto;
 }
 
-.building-card {
-    background: white;
-    border-radius: 0;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+.hero-arch-wrap .arch-frame {
+    border-radius: 50% 50% 4px 4px / 13% 13% 4px 4px;
+    border: none;
 }
 
-.building-card:hover {
-    transform: translateY(-10px);
+/* The static home hero image is a composited poster (prototype + rendering +
+   caption text baked in near the top), not a clean square AI render like the
+   gallery images, so anchor the cover-crop to the bottom to avoid slicing
+   into the caption band. */
+.hero-arch-wrap .arch-frame img {
+    object-position: center bottom;
 }
 
-.building-card img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    display: block;
+.hero-caption {
+    margin-top: 16px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ink);
+    text-align: center;
+}
+
+/* === HOME === */
+.home-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 56px;
+    align-items: center;
+    padding: 40px 0 96px 0;
+}
+
+@media (max-width: 768px) {
+    .home-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .home-layout .home-image {
+        order: -1;
+    }
+}
+
+.home-cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 28px;
+    margin-top: 36px;
+}
+
+.home-section {
+    padding: 48px 0 96px 0;
+}
+
+.section-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+/* === RENDERING GRID (gallery + home preview) === */
+.rendering-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 40px 28px;
+}
+
+.rendering-card {
+    margin: 0;
+}
+
+.rendering-card .arch-frame {
     cursor: pointer;
+}
+
+.card-caption-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 14px;
+    gap: 12px;
+}
+
+.card-name {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--ink);
+}
+
+.card-number {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    color: var(--brownstone);
+    flex-shrink: 0;
+}
+
+.card-caption-row.card-caption-row--quiet {
+    justify-content: center;
+}
+
+.card-caption-row--quiet .card-name {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.card-ai-description {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-top: 10px;
+}
+
+.card-submitted {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    color: var(--brownstone);
+    margin-top: 8px;
+    opacity: 0.85;
+}
+
+/* Static poster assets (prototype + rendering + caption composited together)
+   have baked-in text near the top, unlike the clean square AI renders, so
+   anchor their cover-crop to the bottom. */
+.arch-frame--poster img {
+    object-position: center bottom;
 }
 
 /* === LIGHTBOX === */
 .lightbox {
     position: fixed;
     inset: 0;
-    background: rgba(10, 14, 39, 0.92);
+    background: rgba(var(--ink-rgb), 0.88);
     display: none;
     align-items: center;
     justify-content: center;
@@ -182,11 +516,40 @@ button {
     display: flex;
 }
 
-.lightbox img {
-    max-width: 90vw;
-    max-height: 85vh;
+.lightbox-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.lightbox .hero-arch-wrap {
+    width: min(640px, 85vw);
+}
+
+.lightbox .arch-frame {
+    background: var(--image-fill);
+}
+
+.lightbox .arch-frame img {
     object-fit: contain;
-    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+    background: var(--image-fill);
+}
+
+.lightbox-caption {
+    margin-top: 20px;
+    display: flex;
+    gap: 16px;
+    align-items: baseline;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--cream);
+    font-size: 16px;
+}
+
+.lightbox-caption .card-number {
+    color: var(--cream);
+    opacity: 0.85;
 }
 
 .lightbox-close {
@@ -206,209 +569,123 @@ button {
     opacity: 0.7;
 }
 
-.card-content {
-    padding: 30px;
-}
-
-.building-card h3 {
-    font-family: 'Bebas Neue', sans-serif;
+.lightbox-arrow {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    color: var(--cream);
     font-size: 2.5rem;
-    color: var(--deep-navy);
-    margin-bottom: 15px;
-    letter-spacing: -1px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 12px;
 }
 
-.building-card p {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: var(--deep-navy);
-    margin-bottom: 10px;
-}
-
-.building-card strong {
-    font-weight: 700;
-    color: var(--electric-orange);
-}
-
-.card-meta {
-    margin-top: 20px;
-    padding-top: 20px;
-    border-top: 2px solid var(--cream);
-    font-size: 0.9rem;
+.lightbox-arrow:hover {
     opacity: 0.7;
 }
 
-/* page-about gallery */
-.page-about .building-card {
-    background: white;
-    padding: 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.lightbox-arrow--prev {
+    left: 16px;
 }
 
-.page-about .building-card img {
-    width: 100%;
-    height: auto;
-    display: block;
-    padding: 0;
+.lightbox-arrow--next {
+    right: 16px;
 }
 
-.about-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 80px 40px 40px 40px;
+@media (max-width: 600px) {
+    .lightbox-arrow {
+        font-size: 1.8rem;
+    }
 }
 
-.about-container h1 {
-    color: var(--deep-navy);
-    margin-top: 60px;
-    margin-bottom: 30px;
+/* === ABOUT === */
+.about-intro {
+    column-count: 2;
+    column-gap: 56px;
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--ink);
+    margin-bottom: 96px;
 }
 
-.about-container h1:first-child {
-    margin-top: 120px; /* Extra space for first heading to clear nav */
+@media (max-width: 768px) {
+    .about-intro {
+        column-count: 1;
+    }
 }
 
-.about-container h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.5rem;
-    color: var(--deep-navy);
-    margin-top: 60px;
-    margin-bottom: 20px;
-    letter-spacing: -1px;
+.artist-section {
+    display: grid;
+    grid-template-columns: minmax(220px, 320px) 1fr;
+    gap: 56px;
+    align-items: start;
 }
 
-.about-container p {
-    color: var(--deep-navy);
+@media (max-width: 768px) {
+    .artist-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+.artist-bio {
     font-size: 1.1rem;
     line-height: 1.8;
     margin-bottom: 25px;
-    max-width: 900px;
 }
 
-/* NAVIGATION */
-nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
+.pill-links {
     display: flex;
-    padding: 18px 0;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.pill-link-filled {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 20px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--marigold);
+    text-decoration: none;
+}
+
+.pill-link-outline {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    padding: 12px 20px;
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink);
+    color: var(--ink);
+    text-decoration: none;
+}
+
+/* === FOOTER === */
+.site-footer {
+    border-top: 1.5px solid var(--ink);
+    margin-top: 96px;
+    padding: 32px 0;
+    display: flex;
     justify-content: space-between;
     align-items: center;
-    z-index: 1000;
-    color: white;                           
-    background: rgba(227, 74, 39, 0.85);    /* Orange with transparency */
-    backdrop-filter: blur(10px);        /* Blur effect */
+    flex-wrap: wrap;
+    gap: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--ink);
 }
 
-.logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.5rem;
-    letter-spacing: 2px;
-    padding: 0;
-    color: white;  
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
-    font-size: 0.9rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding-right: 18px;
-    color: white; 
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: inherit;
-    transition: opacity 0.3s ease;
-}
-
-.nav-links a:hover {
-    opacity: 0.6;
-}
-
-.contact-links {
-    display: flex;
-    gap: 30px;
-    margin-top: 20px;
-}
-
-/* Home page layout with image */
-.home-layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    max-width: 1200px;
-}
-
-.home-content {
-    padding-right: 20px;
-}
-
-.home-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.home-image img {
-    width: 100%;
-    max-width: 500px;
-    height: auto;
-    border: 3px solid var(--cream);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-}
-
-/* Force line breaks in h1 */
-.page-home h1 {
-    font-size: clamp(2.5rem, 8vw, 5rem);  /* Slightly smaller to fit better */
-}
-
-/* Responsive: stack on mobile */
-@media (max-width: 768px) {
-    .home-layout {
-        grid-template-columns: 1fr;
-    }
-    
-    .home-image {
-        order: -1;  /* Image on top on mobile */
-        margin-bottom: 30px;
-    }
-    
-    .home-image img {
-        max-width: 100%;
-    }
-}
-
-.contact-links a {
-    color: var(--electric-orange);
-    text-decoration: none;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.9rem;
-    transition: opacity 0.3s ease;
-}
-
-.contact-links a:hover {
-    opacity: 0.6;
-}
-
-/* overrides existing styling, different font color + extra padding below button*/
-.page-gallery h1,
-.page-gallery p,
-.page-about h1,
-.page-about p {
-    color: var(--deep-navy);
-}
-
-.page-final button {
-    margin-bottom: 60px;
-}
-
-.logo {
-    padding-left: 18px;
+.site-footer .wordmark {
+    font-size: 18px;
 }

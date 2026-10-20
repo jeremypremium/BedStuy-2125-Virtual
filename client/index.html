@@ -8,35 +8,73 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Bebas+Neue&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Fraunces:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;700&display=swap"
         rel="stylesheet">
 </head>
 
 <body class="page-home">
-    <!-- navigation -->
-     <nav class="navigation">
-        <div class="logo">BED-STUY 2125</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="about.html">About</a>
-        </div>
-    </nav>
+    <header class="site-header container">
+        <a href="index.html" class="wordmark">BED-STUY 2125</a>
+        <nav class="pill-nav">
+            <a href="index.html" class="pill-link is-active">Home</a>
+            <a href="gallery.html" class="pill-link">Gallery</a>
+            <a href="about.html" class="pill-link">About</a>
+        </nav>
+    </header>
 
-      <div class="container home-layout">
+    <div class="container home-layout">
         <div class="home-content">
-            <h1>BUILD THE FUTURE<br>OF BED-STUY</h1>
-            <p>Imagine. Design. Share.</p>
-            <button id="home-button">START BUILDING</button>
+            <span class="eyebrow">Golden hour on the block · 2125</span>
+            <h1 class="display-heading">
+                <span class="line-1">Build the future</span>
+                <span class="line-2">of Bed-Stuy</span>
+            </h1>
+            <p class="tagline">Imagine. Design. Share.</p>
+            <div class="home-cta">
+                <button id="home-button" class="btn-primary">Start building</button>
+                <a href="gallery.html" class="btn-secondary">See what neighbors made</a>
+            </div>
         </div>
         <div class="home-image">
-            <img src="images/Arthur-Square.png" alt="Arthur Square">
+            <div class="hero-arch-wrap">
+                <div class="arch-frame">
+                    <img src="images/Arthur-Square.png" alt="Arthur Square">
+                </div>
+            </div>
+            <p class="hero-caption">Arthur Square, 2125</p>
         </div>
     </div>
 
-    <div id="home-gallery-container" class="gallery-grid" style="background: var(--cream); padding: 80px 20px;">
+    <section class="container home-section">
+        <ol class="stoop-steps">
+            <li class="step step--terracotta" style="--step-width: min(560px, 100%);">
+                <span class="step-label">03 · Share</span>
+                <p>Add it to the Gallery for neighbors to see</p>
+            </li>
+            <li class="step step--brownstone" style="--step-width: min(840px, 100%);">
+                <span class="step-label">02 · Design</span>
+                <p>Name it for a figure, a moment, an idea — and render it.</p>
+            </li>
+            <li class="step step--forest" style="--step-width: 100%;">
+                <span class="step-label">01 · Imagine</span>
+                <p>Pick a corner. Picture what it could hold in the future.</p>
+            </li>
+        </ol>
+    </section>
+
+    <section class="container home-section">
+        <div class="section-heading-row">
+            <h2 class="section-heading">From the gallery</h2>
+            <a href="gallery.html" class="btn-secondary">See all 14 →</a>
         </div>
-    
+        <div id="home-gallery-container" class="rendering-grid"></div>
+    </section>
+
+    <footer class="site-footer container">
+        <span class="wordmark">BED-STUY 2125</span>
+        <span>A speculative design project by Jeremy Knight</span>
+    </footer>
+
     <script src="index.js"></script>
 </body>
 

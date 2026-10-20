@@ -1,39 +1,37 @@
 // used claude for this. was helpful to learn about and use asynch, await, and try
+let buildings = [];
+let currentIndex = null;
+let lastFocusedElement = null;
+
 async function loadBuildings() {
     try {
-      const response = await fetch ('https://bedstuy-2125-virtual.onrender.com/get-buildings');  
-      const buildings = await response.json();
+      const response = await fetch ('https://bedstuy-2125-virtual.onrender.com/get-buildings');
+      buildings = await response.json();
       const container = document.getElementById('buildings-container');
-      buildings.forEach(building => {
-        const card = document.createElement ('div');
-        // Adds the main styling class
-        card.classList.add('building-card'); 
-        
-        card.innerHTML = `
-          <div class="card-image">
-            <img src="${building.ai_image_url}" alt="${building.name}" style="width: 100%; max-width: 400px;">
-          </div>
-          <div class="card-content">
-            <h3>${building.name}</h3>
-            <p><strong>Address:</strong> ${building.address}</p>
-            <p><strong>Year:</strong> ${building.year}</p>
-            <p class="card-description"><em>${building.describe}</em></p>
-            <p><strong>Vibe:</strong> ${building.vibe}</p>
-            <p class="card-description"><em>${building.ai_description}</em></p>
-            <div class="card-meta">
-                        Submitted by ${building.user_name} from ${building.user_location} • ${new Date(building.created_at).toLocaleDateString()}
-                    </div>
-                </div>
-            `; 
-          // from above: building.created_at gets the timestamp from the database; 
-          // new Date(...) converts it to a JavaScript Date object
-          // .toLocaleDateString() formats it to XX/XX/XXXX
-        
-          container.appendChild(card);
 
-          // Open the lightbox when this card's image is clicked
-          const cardImg = card.querySelector('img');
-          cardImg.addEventListener('click', () => openLightbox(building.ai_image_url, building.name));
+      buildings.forEach((building, index) => {
+        const card = document.createElement('article');
+        card.classList.add('rendering-card');
+
+        const number = String(index + 1).padStart(2, '0');
+
+        card.innerHTML = `
+          <div class="arch-frame">
+            <img src="${building.ai_image_url}" alt="${building.name}">
+          </div>
+          <div class="card-caption-row">
+            <span class="card-name">${building.name}</span>
+            <span class="card-number">${number}</span>
+          </div>
+          <p class="card-ai-description">${building.ai_description}</p>
+          <p class="card-submitted">Submitted by ${building.user_name} from ${building.user_location} • ${new Date(building.created_at).toLocaleDateString()}</p>
+        `;
+
+        container.appendChild(card);
+
+        // Open the lightbox when this card's image is clicked
+        const cardImg = card.querySelector('img');
+        cardImg.addEventListener('click', () => openLightbox(index));
       });
 
     } catch (error) {
@@ -44,29 +42,90 @@ async function loadBuildings() {
 // Lightbox controls
 const lightbox = document.getElementById('lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
+const lightboxName = document.getElementById('lightbox-name');
+const lightboxNumber = document.getElementById('lightbox-number');
 const lightboxClose = document.querySelector('.lightbox-close');
+const lightboxPrev = document.querySelector('.lightbox-arrow--prev');
+const lightboxNext = document.querySelector('.lightbox-arrow--next');
 
-function openLightbox(src, alt) {
-    lightboxImg.src = src;
-    lightboxImg.alt = alt;
+function renderLightbox(index) {
+    const building = buildings[index];
+    const number = String(index + 1).padStart(2, '0');
+    lightboxImg.src = building.ai_image_url;
+    lightboxImg.alt = building.name;
+    lightboxName.textContent = building.name;
+    lightboxNumber.textContent = number;
+}
+
+function openLightbox(index) {
+    currentIndex = index;
+    lastFocusedElement = document.activeElement;
+    renderLightbox(index);
     lightbox.classList.add('active');
+    lightboxClose.focus();
 }
 
 function closeLightbox() {
     lightbox.classList.remove('active');
     lightboxImg.src = '';
+    currentIndex = null;
+    if (lastFocusedElement) lastFocusedElement.focus();
+}
+
+function showPrev() {
+    if (currentIndex === null || buildings.length === 0) return;
+    currentIndex = (currentIndex - 1 + buildings.length) % buildings.length;
+    renderLightbox(currentIndex);
+}
+
+function showNext() {
+    if (currentIndex === null || buildings.length === 0) return;
+    currentIndex = (currentIndex + 1) % buildings.length;
+    renderLightbox(currentIndex);
 }
 
 lightboxClose.addEventListener('click', closeLightbox);
+lightboxPrev.addEventListener('click', showPrev);
+lightboxNext.addEventListener('click', showNext);
 
-// Close when clicking the dark backdrop (but not the image itself)
+// Close when clicking the dark backdrop (but not the image or controls)
 lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
 });
 
-// Close on Escape key
+// Keyboard: Escape to close, arrow keys to navigate, Tab trapped inside the lightbox
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeLightbox();
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') {
+        closeLightbox();
+        return;
+    }
+
+    if (e.key === 'ArrowLeft') {
+        showPrev();
+        return;
+    }
+
+    if (e.key === 'ArrowRight') {
+        showNext();
+        return;
+    }
+
+    if (e.key === 'Tab') {
+        const focusable = [lightboxPrev, lightboxClose, lightboxNext];
+        const firstIndex = 0;
+        const lastIndex = focusable.length - 1;
+        const activeIndex = focusable.indexOf(document.activeElement);
+
+        if (e.shiftKey && activeIndex === firstIndex) {
+            e.preventDefault();
+            focusable[lastIndex].focus();
+        } else if (!e.shiftKey && activeIndex === lastIndex) {
+            e.preventDefault();
+            focusable[firstIndex].focus();
+        }
+    }
 });
 
 loadBuildings();

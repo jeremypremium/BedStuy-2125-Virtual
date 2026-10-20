@@ -7,23 +7,47 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Fraunces:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body class="page-gallery">
-     <nav class="navigation">
-        <div class="logo">BED-STUY 2125</div>
-        <div class="nav-links">
-            <a href="index.html">Home</a>
-            <a href="gallery.html">Gallery</a>
-            <a href="about.html">About</a>
-        </div>
-    </nav>
-    <h1>Neighborhood Gallery</h1>
-    <div id="buildings-container" class="gallery-grid"></div>
+    <header class="site-header container">
+        <a href="index.html" class="wordmark">BED-STUY 2125</a>
+        <nav class="pill-nav">
+            <a href="index.html" class="pill-link">Home</a>
+            <a href="gallery.html" class="pill-link is-active">Gallery</a>
+            <a href="about.html" class="pill-link">About</a>
+        </nav>
+    </header>
 
-    <div id="lightbox" class="lightbox">
+    <div class="container section">
+        <h1 class="display-heading">
+            <span class="line-1">Neighborhood</span>
+            <span class="line-2">Gallery</span>
+        </h1>
+
+        <div id="buildings-container" class="rendering-grid"></div>
+    </div>
+
+    <footer class="site-footer container">
+        <span class="wordmark">BED-STUY 2125</span>
+        <span>A speculative design project by Jeremy Knight</span>
+    </footer>
+
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Rendering preview">
+        <button class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous rendering">&larr;</button>
         <button class="lightbox-close" aria-label="Close">&times;</button>
-        <img id="lightbox-img" src="" alt="">
+        <div class="lightbox-content">
+            <div class="hero-arch-wrap">
+                <div class="arch-frame">
+                    <img id="lightbox-img" src="" alt="">
+                </div>
+            </div>
+            <div class="lightbox-caption">
+                <span id="lightbox-name" class="card-name"></span>
+                <span id="lightbox-number" class="card-number"></span>
+            </div>
+        </div>
+        <button class="lightbox-arrow lightbox-arrow--next" aria-label="Next rendering">&rarr;</button>
     </div>
 
         <script src="gallery.js"></script>
