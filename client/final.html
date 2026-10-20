@@ -19,7 +19,14 @@
         </nav>
     </header>
 
-    <div class="container">
+    <section class="container submit-error" id="submit-error" hidden role="alert">
+        <h2 class="section-heading">That one didn't make it to the block.</h2>
+        <p id="submit-error-message">Something went wrong while building your rendering.</p>
+        <p>Your answers are saved, so you won't have to start over.</p>
+        <button type="button" class="btn-primary" id="retry-button">Try again</button>
+    </section>
+
+    <div class="container" id="submission-step">
         <h1>I'm inspired!</h1>
         <p>Let's share it, shall we?</p>
         <form id ="submission-form">
@@ -30,11 +37,28 @@
         <p>Be patient. This might take a while, like 1-2 minutes.</p>
     </div>
 
+    <section class="container loader" id="loader" hidden aria-live="polite">
+        <div class="loader-photo" id="loader-photo" aria-hidden="true"></div>
+        <ol class="stoop-steps loader-steps">
+            <li class="step step--terracotta" data-stage="3" style="--step-width: min(560px, 100%);">
+                <span class="step-label">03 · Adding it to the block</span>
+            </li>
+            <li class="step step--brownstone" data-stage="2" style="--step-width: min(840px, 100%);">
+                <span class="step-label" id="loader-stage-2">02 · Building on the site</span>
+            </li>
+            <li class="step step--forest" data-stage="1" style="--step-width: 100%;">
+                <span class="step-label">01 · Reading your answers</span>
+            </li>
+        </ol>
+        <p class="loader-status">This usually takes 10–40 seconds. Keep this page open.</p>
+    </section>
+
     <footer class="site-footer container">
         <span class="wordmark">BED-STUY 2125</span>
         <span>A speculative design project by Jeremy Knight</span>
     </footer>
 
+    <script src="site-context.js"></script>
     <script src="final.js"></script>
 </body>
 </html>

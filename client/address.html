@@ -22,7 +22,8 @@
     <div class="container">
         <h1>Drop the addy</h1>
         <form action id ="address-form">
-            <input type="text" id="address-input" placeholder="Gates & Tompkins" required>
+            <input type="text" id="address-input" placeholder="Gates & Tompkins" aria-describedby="address-note" required>
+            <p id="address-note" class="address-note" hidden>You're building on this site, so the location is set for you.</p>
             <button type = "submit" class="btn-primary">Next</button>
         </form>
     </div>
@@ -32,6 +33,7 @@
         <span>A speculative design project by Jeremy Knight</span>
     </footer>
 
+    <script src="site-context.js"></script>
     <script src="address.js"></script>
 </body>
 </html>

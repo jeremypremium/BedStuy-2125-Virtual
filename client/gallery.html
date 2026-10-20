@@ -21,10 +21,23 @@
 
     <div class="container section">
         <h1 class="display-heading">
-            <span class="line-1">Neighborhood</span>
-            <span class="line-2">Gallery</span>
+            <span class="line-1" id="heading-line-1">Neighborhood</span>
+            <span class="line-2" id="heading-line-2">Gallery</span>
         </h1>
 
+        <nav class="filter-pills" aria-label="Filter the gallery">
+            <a class="filter-pill" data-filter="all" href="gallery.html">All</a>
+            <a class="filter-pill" data-filter="community" href="gallery.html?collection=community">Community builds</a>
+            <a class="filter-pill" data-filter="initial" href="gallery.html?collection=initial">Initial renderings</a>
+            <a class="filter-pill" data-filter="sites" href="gallery.html?collection=sites">Sites</a>
+        </nav>
+        <nav class="filter-pills filter-pills--sites" id="site-pills" aria-label="Choose a site" hidden></nav>
+
+        <p class="site-cta" id="site-cta" hidden>
+            <a class="btn-secondary" id="site-cta-link" href="#">Add your rendering for this site →</a>
+        </p>
+
+        <p class="gallery-empty" id="gallery-empty" hidden>No renderings here yet. Be the first.</p>
         <div id="buildings-container" class="rendering-grid"></div>
     </div>
 
@@ -43,11 +56,13 @@
             <div class="lightbox-caption">
                 <span id="lightbox-name" class="card-name"></span>
                 <span id="lightbox-number" class="card-number"></span>
+                <button type="button" class="lightbox-share" id="lightbox-share">Share</button>
             </div>
         </div>
         <button class="lightbox-arrow lightbox-arrow--next" aria-label="Next rendering">&rarr;</button>
     </div>
 
-        <script src="gallery.js"></script>
+    <script src="initial-renderings.js"></script>
+    <script src="gallery.js"></script>
 </body>
 </html>
