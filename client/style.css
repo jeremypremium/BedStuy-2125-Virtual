@@ -819,21 +819,6 @@ input:focus {
     padding-bottom: 48px;
 }
 
-.loader-photo {
-    position: absolute;
-    inset: 0 32px;
-    background-size: cover;
-    background-position: center;
-    border-radius: 10px;
-    opacity: 0.22;
-}
-
-@media (max-width: 600px) {
-    .loader-photo {
-        inset: 0 16px;
-    }
-}
-
 .loader-steps {
     position: relative;
 }

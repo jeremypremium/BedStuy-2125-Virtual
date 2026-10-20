@@ -1,7 +1,7 @@
 // passing data from page to page
 const API_BASE = 'https://bedstuy-2125-virtual.onrender.com';
 const ANSWERS_KEY = 'bs2125-answers';
-const REQUEST_TIMEOUT_MS = 120000;
+const REQUEST_TIMEOUT_MS = 300000;
 
 const urlParams = new URLSearchParams(window.location.search);
 const siteSlug = urlParams.get('site');
@@ -26,11 +26,7 @@ try {
   // Nothing saved yet.
 }
 
-if (siteSlug) {
-  loadSite(siteSlug).then(site => {
-    if (site) document.getElementById('loader-photo').style.backgroundImage = `url("${site.photo_url}")`;
-  });
-} else {
+if (!siteSlug) {
   document.getElementById('loader-stage-2').textContent = '02 · Building it';
 }
 
