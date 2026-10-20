@@ -163,6 +163,47 @@ button {
     height: 400px;
     object-fit: cover;
     display: block;
+    cursor: pointer;
+}
+
+/* === LIGHTBOX === */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 14, 39, 0.92);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    padding: 40px;
+}
+
+.lightbox.active {
+    display: flex;
+}
+
+.lightbox img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    background: transparent;
+    border: none;
+    color: var(--cream);
+    font-size: 3rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+}
+
+.lightbox-close:hover {
+    opacity: 0.7;
 }
 
 .card-content {

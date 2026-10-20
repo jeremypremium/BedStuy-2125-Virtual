@@ -30,11 +30,43 @@ async function loadBuildings() {
           // .toLocaleDateString() formats it to XX/XX/XXXX
         
           container.appendChild(card);
+
+          // Open the lightbox when this card's image is clicked
+          const cardImg = card.querySelector('img');
+          cardImg.addEventListener('click', () => openLightbox(building.ai_image_url, building.name));
       });
 
     } catch (error) {
         console.error('error:', error);
     }
 }
+
+// Lightbox controls
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxClose = document.querySelector('.lightbox-close');
+
+function openLightbox(src, alt) {
+    lightboxImg.src = src;
+    lightboxImg.alt = alt;
+    lightbox.classList.add('active');
+}
+
+function closeLightbox() {
+    lightbox.classList.remove('active');
+    lightboxImg.src = '';
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+
+// Close when clicking the dark backdrop (but not the image itself)
+lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeLightbox();
+});
+
+// Close on Escape key
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLightbox();
+});
 
 loadBuildings();
