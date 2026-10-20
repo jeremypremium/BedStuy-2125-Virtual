@@ -376,7 +376,7 @@ input:focus {
    gallery images, so anchor the cover-crop to the bottom to avoid slicing
    into the caption band. */
 .hero-arch-wrap .arch-frame img {
-    object-position: center bottom;
+    object-position: center 80%;
 }
 
 .hero-caption {
@@ -524,16 +524,23 @@ input:focus {
     max-height: 100%;
 }
 
-.lightbox .hero-arch-wrap {
-    width: min(640px, 85vw);
+.lightbox-frame {
+    background: var(--brownstone);
+    padding: 14px;
+    border-radius: 8px;
+    max-width: min(900px, 85vw);
+    max-height: 80vh;
+    display: inline-flex;
 }
 
-.lightbox .arch-frame {
-    background: var(--image-fill);
-}
-
-.lightbox .arch-frame img {
+.lightbox-frame img {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    width: auto;
+    height: auto;
     object-fit: contain;
+    border-radius: 4px;
     background: var(--image-fill);
 }
 

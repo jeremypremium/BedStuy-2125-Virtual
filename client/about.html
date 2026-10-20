@@ -18,8 +18,8 @@
         <a href="index.html" class="wordmark">BED-STUY 2125</a>
         <nav class="pill-nav">
             <a href="index.html" class="pill-link">Home</a>
-            <a href="gallery.html" class="pill-link">Gallery</a>
             <a href="about.html" class="pill-link is-active">About</a>
+            <a href="gallery.html" class="pill-link">Gallery</a>
         </nav>
     </header>
 
@@ -57,7 +57,7 @@
         </ol>
 
         <h2 class="section-heading" style="margin-bottom: 40px;">Initial renderings</h2>
-        <div class="rendering-grid" style="margin-bottom: 96px;">
+        <div id="renderings-grid" class="rendering-grid" style="margin-bottom: 96px;">
             <figure class="rendering-card">
                 <div class="arch-frame arch-frame--poster"><img src="images/Aaliyah-Amphitheater.png" alt="Aaliyah Amphitheater"></div>
                 <figcaption class="card-caption-row"><span class="card-name">Aaliyah Amphitheater</span><span class="card-number">01</span></figcaption>
@@ -148,6 +148,22 @@
         <span>A speculative design project by Jeremy Knight</span>
     </footer>
 
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Rendering preview">
+        <button class="lightbox-arrow lightbox-arrow--prev" aria-label="Previous rendering">&larr;</button>
+        <button class="lightbox-close" aria-label="Close">&times;</button>
+        <div class="lightbox-content">
+            <div class="lightbox-frame">
+                <img id="lightbox-img" src="" alt="">
+            </div>
+            <div class="lightbox-caption">
+                <span id="lightbox-name" class="card-name"></span>
+                <span id="lightbox-number" class="card-number"></span>
+            </div>
+        </div>
+        <button class="lightbox-arrow lightbox-arrow--next" aria-label="Next rendering">&rarr;</button>
+    </div>
+
+    <script src="about.js"></script>
 </body>
 
 </html>
