@@ -63,22 +63,24 @@ app.post('/submit-building', async (req, res) => {
 
     // AI image generation
     const imageResponse = await openai.images.generate ({
-      model: "dall-e-3",
-      prompt: `Editorial architectural photograph of a building at ${address} in Bed-Stuy, Brooklyn, year ${year}. ${aiDescription}. Street-level, eye-level view from across the street, shot on a 35mm tilt-shift lens, soft overcast daylight, natural muted color, subtle film grain, realistic perspective and depth of field. Show the building in its real context: whatever actually sits on and around that block — neighboring buildings of varying types and eras, street trees, parked cars, sidewalk, utility poles, ordinary signage, a few neighbors passing by. Where it fits the site, the architecture can echo classic Bed-Stuy cues — brownstone and red-brick facades, tall parlor windows, cornices, bay fronts, stoops — as touchstones rather than requirements, updated with inventive sustainable materials, greenery, and shared exterior space. Design language draws on Afrofuturist artists and designers such as Olalekan Jeyifous, Ari Melenciano, and Tabita Rezaire: warm, human, grounded, built by and for the community. Lived-in and slightly weathered rather than pristine. Documentary style, as if published in a print architecture magazine. Avoid sci-fi tropes, glowing lights, floating elements, glossy CGI, and dystopian mood.`, 
+      model: "gpt-image-1",
+      prompt: `Editorial architectural photograph of a building at ${address} in Bed-Stuy, Brooklyn, year ${year}. ${aiDescription}. Street-level, eye-level view from across the street, shot on a 35mm tilt-shift lens, soft overcast daylight, natural muted color, subtle film grain, realistic perspective and depth of field. Show the building in its real context: whatever actually sits on and around that block — neighboring buildings of varying types and eras, street trees, parked cars, sidewalk, utility poles, ordinary signage, a few neighbors passing by. Where it fits the site, the architecture can echo classic Bed-Stuy cues — brownstone and red-brick facades, tall parlor windows, cornices, bay fronts, stoops — as touchstones rather than requirements, updated with inventive sustainable materials, greenery, and shared exterior space. Design language draws on Afrofuturist artists and designers such as Olalekan Jeyifous, Ari Melenciano, and Tabita Rezaire: warm, human, grounded, built by and for the community. Lived-in and slightly weathered rather than pristine. Documentary style, as if published in a print architecture magazine. Avoid sci-fi tropes, glowing lights, floating elements, glossy CGI, and dystopian mood.`,
       n: 1,
-      size: "1024x1024"
+      size: "1024x1024",
+      quality: "high"
     });
 
-    const tempImageUrl = imageResponse.data[0].url;
-    console.log ('AI image generated (temporary URL)');
+    const base64Image = imageResponse.data[0].b64_json;
+    const imageDataUri = `data:image/png;base64,${base64Image}`;
+    console.log ('AI image generated (base64)');
 
-    // Upload to Cloudinary for permanent storage 
-    const uploadResult = await cloudinary.uploader.upload(tempImageUrl, {
+    // Upload to Cloudinary for permanent storage
+    const uploadResult = await cloudinary.uploader.upload(imageDataUri, {
       folder: 'bedstuy-2125',
       transformation: [
         {width: 1024, height: 1024, crop: 'limit'}
       ]
-    });  
+    });
 
     const permanentImageUrl = uploadResult.secure_url;
     console.log ('image uploaded to Cloudinary (permanent URL');
