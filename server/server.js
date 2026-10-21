@@ -14,6 +14,8 @@ const CLIENT_ORIGINS = (process.env.CLIENT_ORIGIN || 'https://bedstuy-2125-virtu
 const DAILY_GENERATION_CAP = Number(process.env.DAILY_GENERATION_CAP || 50);
 const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_MAX || 3);
 const RATE_LIMIT_WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MINUTES || 15) * 60 * 1000;
+const SUGGEST_RATE_LIMIT_MAX = Number(process.env.SUGGEST_RATE_LIMIT_MAX || 5);
+const SUGGEST_RATE_LIMIT_WINDOW_MS = Number(process.env.SUGGEST_RATE_LIMIT_WINDOW_MINUTES || 60) * 60 * 1000;
 const IMAGE_QUALITY = process.env.IMAGE_QUALITY || 'high';
 
 // OpenAI connection
@@ -42,21 +44,78 @@ app.set('trust proxy', 1);
 app.use(cors( {
   origin: CLIENT_ORIGINS
 }));
-app.use(express.json());
 
 // Per-IP rate limit, in memory (fine for a single Render instance).
-const recentSubmissions = new Map();
-
-function rateLimit(req, res, next) {
-  const now = Date.now();
-  const recent = (recentSubmissions.get(req.ip) || []).filter(time => now - time < RATE_LIMIT_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT_MAX) {
-    return res.status(429).json({ error: "You've made a few renderings in a row. Take a breather and try again in a few minutes." });
-  }
-  recent.push(now);
-  recentSubmissions.set(req.ip, recent);
-  next();
+function createRateLimit(max, windowMs, message) {
+  const recentByIp = new Map();
+  return (req, res, next) => {
+    const now = Date.now();
+    const recent = (recentByIp.get(req.ip) || []).filter(time => now - time < windowMs);
+    if (recent.length >= max) {
+      return res.status(429).json({ error: message });
+    }
+    recent.push(now);
+    recentByIp.set(req.ip, recent);
+    next();
+  };
 }
+
+const rateLimit = createRateLimit(RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MS,
+  "You've made a few renderings in a row. Take a breather and try again in a few minutes.");
+const suggestRateLimit = createRateLimit(SUGGEST_RATE_LIMIT_MAX, SUGGEST_RATE_LIMIT_WINDOW_MS,
+  "Thanks for all the suggestions! Please try again in a little while.");
+
+function cleanText(value, maxLength) {
+  const text = typeof value === 'string' ? value.trim() : '';
+  return text ? text.slice(0, maxLength) : null;
+}
+
+// Registered before the global JSON parser so only this route accepts a photo-sized body.
+app.post('/suggest-site', express.json({ limit: '6mb' }), suggestRateLimit, async (req, res) => {
+  try {
+    const { website, photo, photo_consent } = req.body;
+    // Honeypot: people never see this field, so anything in it is a bot.
+    if (website) return res.json({ ok: true });
+
+    const location = cleanText(req.body.location, 200);
+    if (!location) return res.status(400).json({ error: 'Please tell us where the site is.' });
+
+    const firstName = cleanText(req.body.first_name, 60);
+    const lastInitial = cleanText(req.body.last_initial, 10);
+    const initial = lastInitial ? lastInitial.replace(/[^\p{L}]/gu, '').slice(0, 1).toUpperCase() || null : null;
+
+    let photoPublicId = null;
+    if (photo) {
+      if (typeof photo !== 'string' || !photo.startsWith('data:image/jpeg;base64,')) {
+        return res.status(400).json({ error: "We couldn't read that photo. Please try a different one." });
+      }
+      if (!photo_consent) {
+        return res.status(400).json({ error: 'Please confirm the photo is yours before sending.' });
+      }
+      // 'authenticated' assets have no public URL; view them in Cloudinary's Media Library.
+      const upload = await cloudinary.uploader.upload(photo, {
+        folder: 'bedstuy-2125/suggestions',
+        type: 'authenticated',
+      });
+      photoPublicId = upload.public_id;
+    }
+
+    await pool.query(
+      `INSERT INTO site_suggestions
+        (location, current_use, why, photo_public_id, first_name, last_initial, credit_ok)
+       VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+      [location, cleanText(req.body.current_use, 300), cleanText(req.body.why, 600), photoPublicId,
+       firstName, initial, Boolean(firstName && req.body.credit_ok)]
+    );
+
+    res.json({ ok: true });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Something went wrong sending your suggestion.' });
+  }
+});
+
+app.use(express.json());
 
 async function underDailyCap() {
   const result = await pool.query(

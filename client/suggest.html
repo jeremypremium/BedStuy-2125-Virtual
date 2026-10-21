@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suggest a site · Bed-Stuy 2125</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Fraunces:ital,wght@0,400;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="page-suggest">
+    <header class="site-header container">
+        <a href="index.html" class="wordmark">BED-STUY 2125</a>
+        <nav class="pill-nav">
+            <a href="index.html" class="pill-link">Home</a>
+            <a href="about.html" class="pill-link">About</a>
+            <a href="gallery.html" class="pill-link">Gallery</a>
+        </nav>
+    </header>
+
+    <main class="container section">
+        <div id="suggest-view">
+            <h1 class="display-heading">
+                <span class="line-1">Suggest</span>
+                <span class="line-2">a site</span>
+            </h1>
+            <p class="tagline">Know a corner that should be next? Tell us where.</p>
+
+            <form id="suggest-form" class="suggest-form" novalidate>
+                <div class="suggest-step">
+                    <label class="step-label" for="location">01 · Where</label>
+                    <p class="field-help" id="location-help">An address, a corner, or a landmark nearby. Close enough is fine.</p>
+                    <input type="text" id="location" maxlength="200" placeholder="Myrtle & Throop" required aria-describedby="location-help location-error">
+                    <p class="field-error" id="location-error" hidden>Please tell us where the site is.</p>
+                </div>
+
+                <div class="suggest-step">
+                    <label class="step-label" for="current-use">02 · What's there now <span class="optional">optional</span></label>
+                    <p class="field-help" id="current-use-help">A vacant lot, a parking lot, an empty storefront, a fence…</p>
+                    <input type="text" id="current-use" maxlength="300" aria-describedby="current-use-help">
+                </div>
+
+                <div class="suggest-step">
+                    <label class="step-label" for="why">03 · Why this spot <span class="optional">optional</span></label>
+                    <p class="field-help" id="why-help">What it means to you, or what the block could use.</p>
+                    <textarea id="why" maxlength="600" rows="4" aria-describedby="why-help why-count"></textarea>
+                    <p class="char-count" id="why-count">0 / 600</p>
+                </div>
+
+                <div class="suggest-step">
+                    <span class="step-label" id="photo-label">04 · Reference photo <span class="optional">optional</span></span>
+                    <p class="field-help" id="photo-help">A quick snap helps us find the spot. It's only used for scouting.</p>
+                    <label class="photo-button" for="photo-input" id="photo-button">
+                        <span>Add a photo</span>
+                        <span class="photo-button-sub">photo library · camera · files</span>
+                    </label>
+                    <input type="file" id="photo-input" class="visually-hidden" accept="image/*" aria-labelledby="photo-label" aria-describedby="photo-help">
+                    <div class="photo-preview" id="photo-preview" hidden>
+                        <img id="photo-thumb" src="" alt="Your reference photo">
+                        <button type="button" class="btn-secondary" id="photo-remove">Remove photo</button>
+                        <label class="check-row">
+                            <input type="checkbox" id="photo-consent">
+                            <span>This is my photo, and it can be used to scout the site. It won't be published.</span>
+                        </label>
+                    </div>
+                    <p class="field-error" id="photo-error" hidden></p>
+                </div>
+
+                <div class="suggest-step">
+                    <span class="step-label">05 · Send</span>
+                    <div class="name-row">
+                        <div>
+                            <label class="field-label" for="first-name">First name <span class="optional">optional</span></label>
+                            <input type="text" id="first-name" maxlength="60" autocomplete="given-name">
+                        </div>
+                        <div class="name-row-initial">
+                            <label class="field-label" for="last-initial">Last initial</label>
+                            <input type="text" id="last-initial" maxlength="1" autocomplete="off">
+                        </div>
+                    </div>
+                    <label class="check-row" id="credit-row" hidden>
+                        <input type="checkbox" id="credit-ok">
+                        <span>Credit me as "Suggested by <span id="credit-preview"></span>" if this site goes live.</span>
+                    </label>
+                    <div class="honeypot" aria-hidden="true">
+                        <label for="website">Website</label>
+                        <input type="text" id="website" tabindex="-1" autocomplete="off">
+                    </div>
+                    <p class="field-help">Your suggestion and photo stay private.</p>
+                    <p class="field-error" id="submit-error" role="alert" hidden></p>
+                    <button type="submit" class="btn-primary" id="submit-button">Send suggestion</button>
+                </div>
+            </form>
+
+            <p class="ig-cta">Spot a corner out in the world? Tag <a href="https://www.instagram.com/jeremypremium/" target="_blank" rel="noopener">@jeremypremium</a> with #BedStuy2125.</p>
+        </div>
+
+        <div id="thanks-view" hidden tabindex="-1">
+            <h1 class="display-heading">
+                <span class="line-1">Thank</span>
+                <span class="line-2">you</span>
+            </h1>
+            <p class="tagline">We'll take a look. If it becomes a site, it'll show up in the gallery.</p>
+            <p class="ig-cta">Spot another corner out in the world? Tag <a href="https://www.instagram.com/jeremypremium/" target="_blank" rel="noopener">@jeremypremium</a> with #BedStuy2125.</p>
+            <div class="home-cta">
+                <a class="btn-primary" href="gallery.html?collection=sites">See the sites</a>
+                <a class="btn-secondary" href="suggest.html">Suggest another</a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer container">
+        <span class="wordmark">BED-STUY 2125</span>
+        <span>A speculative design project by Jeremy Knight</span>
+    </footer>
+
+    <script src="suggest.js"></script>
+</body>
+</html>

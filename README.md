@@ -50,6 +50,23 @@ One-time setup (already done for the pilot):
 
 If you replace a site's photo or mask, give the new file a **new name** and update the row's URL. The API caches site images in memory, so reusing the same URL keeps serving the old file until the server restarts.
 
+### Reviewing site suggestions
+
+Neighbors can suggest new sites at `/suggest.html`, which is linked from the homepage and every site page. Suggestions are private and never appear on the site. One-time setup: run `server/db/003_site_suggestions.sql` in Neon's SQL Editor.
+
+To read them, run this in Neon's SQL Editor:
+
+```sql
+SELECT id, created_at, location, current_use, why, photo_public_id,
+       CASE WHEN credit_ok THEN first_name || COALESCE(' ' || last_initial || '.', '') END AS credit_as,
+       first_name, last_initial, status
+FROM site_suggestions ORDER BY created_at DESC;
+```
+
+- **Reference photos** are private (Cloudinary "authenticated" assets). Open Cloudinary → **Media Library** → folder `bedstuy-2125/suggestions`, and match a photo to its row with `photo_public_id`. Photos are resized and have location data removed before upload.
+- **Credit:** `credit_as` is filled in only when the person opted in, e.g. `Jordan K.`. Use it as "Suggested by Jordan K." when that site goes live.
+- **Tracking:** mark progress with `UPDATE site_suggestions SET status = 'photographed' WHERE id = <id>;` (or `'live'`, `'passed'`).
+
 ### Environment variables (API service on Render)
 
 | Variable | Default | Purpose |
@@ -60,6 +77,8 @@ If you replace a site's photo or mask, give the new file a **new name** and upda
 | `RATE_LIMIT_MAX` | `3` | Submissions allowed per IP per window |
 | `RATE_LIMIT_WINDOW_MINUTES` | `15` | Length of that window |
 | `IMAGE_QUALITY` | `high` | `high`, `medium`, or `low` for site renderings (trades quality for cost) |
+| `SUGGEST_RATE_LIMIT_MAX` | `5` | Site suggestions allowed per IP per window |
+| `SUGGEST_RATE_LIMIT_WINDOW_MINUTES` | `60` | Length of that window |
 
 ### Moderation
 
