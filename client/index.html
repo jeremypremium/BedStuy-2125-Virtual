@@ -67,7 +67,13 @@
             <h2 class="section-heading">From the gallery</h2>
             <a href="gallery.html" class="btn-secondary">See all →</a>
         </div>
-        <div id="home-gallery-container" class="rendering-grid"></div>
+        <div id="home-gallery-container" class="rendering-grid" aria-busy="true">
+            <article class="rendering-card is-placeholder" aria-hidden="true"><div class="arch-frame"></div></article>
+            <article class="rendering-card is-placeholder" aria-hidden="true"><div class="arch-frame"></div></article>
+            <article class="rendering-card is-placeholder" aria-hidden="true"><div class="arch-frame"></div></article>
+            <article class="rendering-card is-placeholder" aria-hidden="true"><div class="arch-frame"></div></article>
+        </div>
+        <p class="gallery-status" id="home-gallery-status" role="status">Loading the latest renderings from neighbors…</p>
     </section>
 
     <footer class="site-footer container">

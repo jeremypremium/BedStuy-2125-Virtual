@@ -25,12 +25,15 @@
             <span class="line-2" id="heading-line-2">Gallery</span>
         </h1>
 
-        <nav class="filter-pills" aria-label="Filter the gallery">
-            <a class="filter-pill" data-filter="all" href="gallery.html">All</a>
-            <a class="filter-pill" data-filter="community" href="gallery.html?collection=community">Community builds</a>
-            <a class="filter-pill" data-filter="initial" href="gallery.html?collection=initial">Initial renderings</a>
-            <a class="filter-pill" data-filter="sites" href="gallery.html?collection=sites">Sites</a>
-        </nav>
+        <div class="filter-row">
+            <nav class="filter-pills" aria-label="Filter the gallery">
+                <a class="filter-pill" data-filter="all" href="gallery.html">All</a>
+                <a class="filter-pill" data-filter="community" href="gallery.html?collection=community">Community builds</a>
+                <a class="filter-pill" data-filter="initial" href="gallery.html?collection=initial">Initial renderings</a>
+                <a class="filter-pill" data-filter="sites" href="gallery.html?collection=sites">Sites</a>
+            </nav>
+            <a class="btn-secondary filter-row-link" href="suggest.html">Know a corner that should be next? Suggest a site →</a>
+        </div>
         <nav class="filter-pills filter-pills--sites" id="site-pills" aria-label="Choose a site" hidden></nav>
 
         <p class="site-cta" id="site-cta" hidden>

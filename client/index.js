@@ -8,26 +8,32 @@ function escapeHtml(value) {
     })[char]);
 }
 
+// Ask Cloudinary for a smaller, compressed copy for card-sized images.
+function cardImageUrl(url) {
+    return url && url.includes('res.cloudinary.com/') ? url.replace('/upload/', '/upload/f_auto,q_auto,w_800/') : url;
+}
+
 // Gallery Loading on homeapage
 async function loadHomeGallery() {
+    const container = document.getElementById('home-gallery-container');
+    const status = document.getElementById('home-gallery-status');
+
     try {
-        const response = await fetch('https://bedstuy-2125-virtual.onrender.com/get-buildings');  
+        const response = await fetch('https://bedstuy-2125-virtual.onrender.com/get-buildings');
+        if (!response.ok) throw new Error(`get-buildings failed: ${response.status}`);
         const buildings = await response.json();
-        
-        const container = document.getElementById('home-gallery-container');
-        
-        if (!container) return; // Safety check in case the ID is missing
 
         // show only the 4 most recent buildings on the homepage
         const recentBuildings = buildings.slice(0, 4);
 
+        container.innerHTML = '';
         recentBuildings.forEach(building => {
             const card = document.createElement('article');
             card.classList.add('rendering-card');
 
             card.innerHTML = `
                 <div class="arch-frame">
-                    <img src="${escapeHtml(building.ai_image_url)}" alt="${escapeHtml(building.name)}" onerror="this.style.display='none'">
+                    <img src="${escapeHtml(cardImageUrl(building.ai_image_url))}" alt="${escapeHtml(building.name)}" onerror="this.style.display='none'">
                 </div>
                 <div class="card-caption-row card-caption-row--quiet">
                     <span class="card-name">${escapeHtml(building.name)}</span>
@@ -37,9 +43,14 @@ async function loadHomeGallery() {
             `;
             container.appendChild(card);
         });
+        status.hidden = true;
 
     } catch (error) {
         console.error('Error loading homepage gallery:', error);
+        container.innerHTML = '';
+        status.innerHTML = 'We couldn\'t load the latest renderings. <a href="gallery.html">Visit the gallery →</a>';
+    } finally {
+        container.setAttribute('aria-busy', 'false');
     }
 }
 

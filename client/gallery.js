@@ -18,6 +18,11 @@ function escapeHtml(value) {
     })[char]);
 }
 
+// Ask Cloudinary for a smaller, compressed copy for cards; the lightbox keeps the full image.
+function cardImageUrl(url) {
+    return url && url.includes('res.cloudinary.com/') ? url.replace('/upload/', '/upload/f_auto,q_auto,w_800/') : url;
+}
+
 function fromBuilding(building) {
     const where = building.site_name ? ` • ${building.site_name}` : '';
     return {
@@ -73,7 +78,7 @@ function renderCard(item, index) {
 
     const frame = item.kind === 'poster'
         ? `<div class="poster-frame"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy"></div>`
-        : `<div class="arch-frame"><img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" loading="lazy"></div>`;
+        : `<div class="arch-frame"><img src="${escapeHtml(cardImageUrl(item.image))}" alt="${escapeHtml(item.name)}" loading="lazy"></div>`;
 
     card.innerHTML = `
       ${item.highlighted ? '<span class="eyebrow">Your rendering</span>' : ''}
