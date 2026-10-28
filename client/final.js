@@ -1,5 +1,4 @@
 // passing data from page to page
-const API_BASE = 'https://bedstuy-2125-virtual.onrender.com';
 const ANSWERS_KEY = 'bs2125-answers';
 const REQUEST_TIMEOUT_MS = 300000;
 

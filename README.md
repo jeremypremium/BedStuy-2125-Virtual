@@ -30,25 +30,29 @@ One-time setup (already done for the pilot):
      '<slug>',
      '<Display name, e.g. 412 Tompkins Ave>',
      '<Full address, e.g. 412 Tompkins Ave, Brooklyn, NY>',
-     'https://bedstuy-2125-virtual-client.onrender.com/images/sites/<slug>.png',
-     'https://bedstuy-2125-virtual-client.onrender.com/images/sites/<slug>-mask.png',
+     '/images/sites/<slug>.png',
+     '/images/sites/<slug>-mask.png',
      '<One or two sentences describing the photo: what is on the lot, and what is to the left, behind, and to the right.>'
    );
    ```
+
+   Use paths starting with `/images/`, not full URLs, so the row works on every domain the site is served from.
 
    The site immediately shows up in the gallery's **Sites** filter. To take a site offline, run `UPDATE sites SET active = false WHERE slug = '<slug>';`.
 
 5. **Generate the QR code** (needs Python with `pip3 install segno`):
 
    ```bash
-   python3 -c "import segno; q = segno.make('https://bedstuy-2125-virtual-client.onrender.com/s/<slug>', error='h'); q.save('qr/<slug>.svg', scale=20, border=4, dark='#1e2a1a'); q.save('qr/<slug>.png', scale=60, border=4, dark='#1e2a1a')"
+   python3 qr/make_qr.py <slug>
    ```
+
+   This writes `qr/<slug>.svg` and `qr/<slug>.png`, pointing to `https://bedstuy2125.org/s/<slug>`. To use a different domain, run it with `PUBLIC_BASE_URL=https://example.org` in front.
 
    Print it at least 7 cm (about 3 in) wide, and keep the white border around it.
 
 6. **Test it.** Scan the code with your phone and submit one rendering.
 
-If you replace a site's photo or mask, give the new file a **new name** and update the row's URL. The API caches site images in memory, so reusing the same URL keeps serving the old file until the server restarts.
+If you replace a site's photo or mask, give the new file a **new name** and update the row's path. The API caches site images in memory, so reusing the same URL keeps serving the old file until the server restarts.
 
 ### Reviewing site suggestions
 
@@ -72,7 +76,8 @@ FROM site_suggestions ORDER BY created_at DESC;
 | Variable | Default | Purpose |
 |---|---|---|
 | `OPENAI_API_KEY`, `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `DATABASE_URL` | none | Existing service credentials |
-| `CLIENT_ORIGIN` | `https://bedstuy-2125-virtual-client.onrender.com` | Allowed browser origin(s), comma-separated |
+| `PUBLIC_BASE_URL` | `https://bedstuy2125.org` | The site's public address. The API uses it to fetch site photos and masks, and it's the domain QR codes should point to |
+| `CLIENT_ORIGIN` | none | Extra browser origins allowed to call the API, comma-separated. `bedstuy2125.org`, `www.bedstuy2125.org`, and the onrender client address are always allowed |
 | `DAILY_GENERATION_CAP` | `50` | Max renderings saved per day (UTC), all flows combined |
 | `RATE_LIMIT_MAX` | `3` | Submissions allowed per IP per window |
 | `RATE_LIMIT_WINDOW_MINUTES` | `15` | Length of that window |

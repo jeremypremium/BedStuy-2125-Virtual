@@ -1,5 +1,4 @@
 // used claude for this. was helpful to learn about and use asynch, await, and try
-const API_BASE = 'https://bedstuy-2125-virtual.onrender.com';
 
 const params = new URLSearchParams(window.location.search);
 const siteSlug = params.get('site');

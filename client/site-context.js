@@ -1,6 +1,4 @@
 // Shared by the site page and the survey pages that need to know which site a submission is for.
-const SITE_API_BASE = 'https://bedstuy-2125-virtual.onrender.com';
-
 async function loadSite(slug) {
     const cacheKey = `bs2125-site:${slug}`;
     try {
@@ -10,7 +8,7 @@ async function loadSite(slug) {
         // sessionStorage can be unavailable (private mode); fall through to the network.
     }
 
-    const response = await fetch(`${SITE_API_BASE}/sites/${encodeURIComponent(slug)}`);
+    const response = await fetch(`${API_BASE}/sites/${encodeURIComponent(slug)}`);
     if (!response.ok) return null;
     const site = await response.json();
     try {

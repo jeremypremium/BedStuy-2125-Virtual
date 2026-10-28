@@ -9,8 +9,17 @@ const { toFile } = require("openai");
 const cloudinary = require('cloudinary').v2;
 const sharp = require('sharp');
 
-const CLIENT_ORIGINS = (process.env.CLIENT_ORIGIN || 'https://bedstuy-2125-virtual-client.onrender.com')
-  .split(',').map(origin => origin.trim());
+// The public site's canonical address: used for QR codes and to resolve site photo paths.
+const PUBLIC_BASE_URL = (process.env.PUBLIC_BASE_URL || 'https://bedstuy2125.org').replace(/\/+$/, '');
+// Browsers allowed to call this API. CLIENT_ORIGIN adds extra origins (comma-separated)
+// on top of these, so setting it can never lock out the main domains.
+const CLIENT_ORIGINS = [...new Set([
+  PUBLIC_BASE_URL,
+  'https://bedstuy2125.org',
+  'https://www.bedstuy2125.org',
+  'https://bedstuy-2125-virtual-client.onrender.com',
+  ...(process.env.CLIENT_ORIGIN || '').split(',').map(origin => origin.trim()).filter(Boolean),
+])];
 const DAILY_GENERATION_CAP = Number(process.env.DAILY_GENERATION_CAP || 50);
 const RATE_LIMIT_MAX = Number(process.env.RATE_LIMIT_MAX || 3);
 const RATE_LIMIT_WINDOW_MS = Number(process.env.RATE_LIMIT_WINDOW_MINUTES || 15) * 60 * 1000;
@@ -175,6 +184,12 @@ async function renderStandalone(prompt) {
 // Site photos and masks are static files on the client site; cache them per server process.
 const assetCache = new Map();
 
+// Site rows store photo/mask paths like /images/sites/x.jpg, so they work on any domain.
+// Full URLs (older rows) are used as-is.
+function absoluteAssetUrl(pathOrUrl) {
+  return pathOrUrl ? new URL(pathOrUrl, `${PUBLIC_BASE_URL}/`).href : null;
+}
+
 async function fetchAsset(url) {
   if (!assetCache.has(url)) {
     const response = await fetch(url);
@@ -189,7 +204,7 @@ async function fetchAsset(url) {
 // aspect ratio, then pasted onto the original photo through the mask so that everything
 // outside the editable area stays photographically identical.
 async function renderOnSite(site, prompt) {
-  const photo = await fetchAsset(site.photo_url);
+  const photo = await fetchAsset(absoluteAssetUrl(site.photo_url));
   const { width: photoWidth, height: photoHeight } = await sharp(photo).metadata();
   const canvasWidth = photoWidth >= photoHeight ? 1536 : 1024;
   const canvasHeight = photoWidth >= photoHeight ? 1024 : 1536;
@@ -210,7 +225,7 @@ async function renderOnSite(site, prompt) {
   let maskBand = null;
   let maskCanvas = null;
   if (site.mask_url) {
-    const mask = await fetchAsset(site.mask_url);
+    const mask = await fetchAsset(absoluteAssetUrl(site.mask_url));
     maskBand = await sharp(mask).ensureAlpha().resize(width, height, { fit: 'fill' }).png().toBuffer();
     maskCanvas = await sharp(maskBand)
       .extend({ ...pad, background: { r: 0, g: 0, b: 0, alpha: 1 } })
@@ -326,7 +341,7 @@ app.post('/submit-building', rateLimit, async (req, res) => {
          site_id, final_prompt, base_photo_url, status)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING *`,
       [name, address, year, describe, vibe, user_name, user_location, aiDescription, permanentImageUrl,
-       site ? site.id : null, finalPrompt, site ? site.photo_url : null, status]
+       site ? site.id : null, finalPrompt, site ? absoluteAssetUrl(site.photo_url) : null, status]
     );
 
     console.log('building saved to database with permanent image');

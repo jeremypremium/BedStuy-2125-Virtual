@@ -1,4 +1,3 @@
-const API_BASE = 'https://bedstuy-2125-virtual.onrender.com';
 const MAX_PHOTO_SIDE = 1600;
 
 const form = document.getElementById('suggest-form');

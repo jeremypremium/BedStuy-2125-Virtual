@@ -27,8 +27,8 @@ VALUES (
     '1111-myrtle',
     '1111 Myrtle Ave',
     '1111 Myrtle Ave, Brooklyn, NY',
-    'https://bedstuy-2125-virtual-client.onrender.com/images/sites/1111-myrtle.png',
-    'https://bedstuy-2125-virtual-client.onrender.com/images/sites/1111-myrtle-mask.png',
+    '/images/sites/1111-myrtle.png',
+    '/images/sites/1111-myrtle-mask.png',
     'Street-level view of a vacant lot behind a long green plywood construction fence on Myrtle Avenue. To the left, an older brick apartment building with fire escapes; behind, a new white mid-rise apartment building with balconies; to the right, a tall painted brick wall with faded ghost signage.'
 )
 ON CONFLICT (slug) DO NOTHING;

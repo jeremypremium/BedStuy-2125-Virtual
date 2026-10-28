@@ -19,7 +19,7 @@ async function loadHomeGallery() {
     const status = document.getElementById('home-gallery-status');
 
     try {
-        const response = await fetch('https://bedstuy-2125-virtual.onrender.com/get-buildings');
+        const response = await fetch(`${API_BASE}/get-buildings`);
         if (!response.ok) throw new Error(`get-buildings failed: ${response.status}`);
         const buildings = await response.json();
 
